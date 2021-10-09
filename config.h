@@ -63,6 +63,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_white1, "-sb", col_orange2, "-sf", col_white3, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *flameshotcmd[] = {"flameshot", "gui", NULL};
+static const char *flameshotdelaycmd[] = {"flameshot",  "gui", "--delay", "1500", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -89,6 +91,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ NULL,				XK_Print,  spawn,          {.v = flameshotcmd } },
+	{ ControlMask,			XK_Print,  spawn,          {.v = flameshotdelaycmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -98,7 +102,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-//	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY|ShiftMask|ControlMask, XK_q,      quit,           {0} },
 };
 
 /* button definitions */
